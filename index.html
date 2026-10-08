@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOOD MACHINE / синтезатор эмоций</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="overlay" id="overlay">
+        <h2>MOOD MACHINE</h2>
+        <p>Нажмите для запуска</p>
+    </div>
+
+    <header class="header">
+        <div class="header-title">MOOD MACHINE <span>/ синтезатор эмоций</span></div>
+        <div class="header-bpm">120 BPM</div>
+    </header>
+
+    <div class="main-content">
+        <div class="panel left-panel">
+            <div class="section-title">выбери настроение</div>
+            <div class="mood-grid">
+                <div class="mood-item" data-mood="calm">
+                    <div class="mood-orb-wrapper">
+                        <div class="mood-orb-ring">
+                            <div class="ring-dot top"></div>
+                            <div class="ring-dot right"></div>
+                            <div class="ring-dot bottom"></div>
+                            <div class="ring-dot left"></div>
+                        </div>
+                        <div class="mood-orb calm-orb"></div>
+                    </div>
+                    <div class="mood-name">СПОКОЙНОЕ</div>
+                    <div class="mood-desc">мягкий / тёплый / открытый</div>
+                </div>
+                <div class="mood-item" data-mood="dream">
+                    <div class="mood-orb-wrapper">
+                        <div class="mood-orb-ring">
+                            <div class="ring-dot top"></div>
+                            <div class="ring-dot right"></div>
+                            <div class="ring-dot bottom"></div>
+                            <div class="ring-dot left"></div>
+                        </div>
+                        <div class="mood-orb dream-orb"></div>
+                    </div>
+                    <div class="mood-name">МЕЧТАТЕЛЬНОЕ</div>
+                    <div class="mood-desc">электрический / воздушный / лёгкий</div>
+                </div>
+                <div class="mood-item" data-mood="tension">
+                    <div class="mood-orb-wrapper">
+                        <div class="mood-orb-ring">
+                            <div class="ring-dot top"></div>
+                            <div class="ring-dot right"></div>
+                            <div class="ring-dot bottom"></div>
+                            <div class="ring-dot left"></div>
+                        </div>
+                        <div class="mood-orb tension-orb"></div>
+                    </div>
+                    <div class="mood-name">НАПРЯЖЁННОЕ</div>
+                    <div class="mood-desc">мягкий / тёплый / открытый</div>
+                </div>
+                <div class="mood-item" data-mood="chaos">
+                    <div class="mood-orb-wrapper">
+                        <div class="mood-orb-ring">
+                            <div class="ring-dot top"></div>
+                            <div class="ring-dot right"></div>
+                            <div class="ring-dot bottom"></div>
+                            <div class="ring-dot left"></div>
+                        </div>
+                        <div class="mood-orb chaos-orb"></div>
+                    </div>
+                    <div class="mood-name">ХАОС</div>
+                    <div class="mood-desc">дикий / тёмный / нестабильный</div>
+                </div>
+            </div>
+
+            <div class="divider-h"></div>
+
+            <div class="section-title">баланс настроения</div>
+            <ul class="balance-list">
+                <li>спокойное <span id="bal-calm">—</span></li>
+                <li>мечтательное <span id="bal-dream">—</span></li>
+                <li>напряжённое <span id="bal-tension">—</span></li>
+                <li>хаос <span id="bal-chaos">—</span></li>
+            </ul>
+        </div>
+
+        <div class="panel center-panel">
+            <div class="waveform">
+                <svg viewBox="0 0 200 60" width="120" height="36">
+                    <path d="M0,30 L20,10 L40,40 L60,20 L80,35 L100,15 L120,45 L140,25 L160,30 L180,20 L200,30"
+                        fill="none" stroke="#4a5568" stroke-width="1" opacity="0.6" />
+                </svg>
+            </div>
+
+            <div class="mode-label">
+                <div class="mode-id" id="modeId">—</div>
+                <div class="mode-name" id="modeText">не выбрано</div>
+            </div>
+
+            <div class="orb-container">
+                <div class="orb-rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                </div>
+                <div class="orb-crosshair"></div>
+                <div class="orb" id="orb"></div>
+            </div>
+        </div>
+
+        <div class="panel right-panel">
+            <div class="section-title">параметры звука</div>
+            <div class="sliders-row">
+                <div class="slider-col">
+                    <div class="slider-label">яркость</div>
+                    <div class="slider-value" id="val-brightness">0.50</div>
+                    <div class="slider-container" data-param="brightness">
+                        <div class="slider-track"></div>
+                        <div class="slider-fill" id="fill-brightness" style="height: 50%"></div>
+                        <div class="slider-thumb" id="thumb-brightness" style="bottom: 50%"></div>
+                    </div>
+                </div>
+                <div class="slider-col">
+                    <div class="slider-label">движение</div>
+                    <div class="slider-value" id="val-movement">0.50</div>
+                    <div class="slider-container" data-param="movement">
+                        <div class="slider-track"></div>
+                        <div class="slider-fill" id="fill-movement" style="height: 50%"></div>
+                        <div class="slider-thumb" id="thumb-movement" style="bottom: 50%"></div>
+                    </div>
+                </div>
+                <div class="slider-col">
+                    <div class="slider-label">глубина</div>
+                    <div class="slider-value" id="val-depth">0.50</div>
+                    <div class="slider-container" data-param="depth">
+                        <div class="slider-track"></div>
+                        <div class="slider-fill" id="fill-depth" style="height: 50%"></div>
+                        <div class="slider-thumb" id="thumb-depth" style="bottom: 50%"></div>
+                    </div>
+                </div>
+                <div class="slider-col">
+                    <div class="slider-label">интенсивность</div>
+                    <div class="slider-value" id="val-intensity">0.50</div>
+                    <div class="slider-container" data-param="intensity">
+                        <div class="slider-track"></div>
+                        <div class="slider-fill" id="fill-intensity" style="height: 50%"></div>
+                        <div class="slider-thumb" id="thumb-intensity" style="bottom: 50%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="surprise-btn" id="surpriseBtn">
+                <span class="surprise-icon">☆</span>
+                <span>удивии меня</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="h-divider"></div>
+
+    <div class="keyboard">
+        <div class="key" data-note="C4" data-key="a"><span>A</span></div>
+        <div class="key" data-note="D4" data-key="s"><span>B</span></div>
+        <div class="key" data-note="E4" data-key="d"><span>C</span></div>
+        <div class="key" data-note="F4" data-key="f"><span>D</span></div>
+        <div class="key" data-note="G4" data-key="g"><span>E</span></div>
+        <div class="key" data-note="A4" data-key="h"><span>F</span></div>
+        <div class="key" data-note="B4" data-key="j"><span>G</span></div>
+        <div class="key" data-note="C5" data-key="k"><span>H</span></div>
+    </div>
+
+    <footer class="footer">
+        <div>MOOD MACHINE</div>
+        <div>играй / исследуй / чувствуй</div>
+    </footer>
+</body>
+
+</html>
