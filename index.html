@@ -6,7 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MOOD MACHINE / синтезатор эмоций</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+    <script type="module" src="script.js"></script>
 </head>
 
 <body>
@@ -21,6 +29,7 @@
     </header>
 
     <div class="main-content">
+        <!-- Левая панель -->
         <div class="panel left-panel">
             <div class="section-title">выбери настроение</div>
             <div class="mood-grid">
@@ -89,6 +98,7 @@
             </ul>
         </div>
 
+        <!-- Центральная панель с Three.js -->
         <div class="panel center-panel">
             <div class="waveform">
                 <svg viewBox="0 0 200 60" width="120" height="36">
@@ -102,17 +112,10 @@
                 <div class="mode-name" id="modeText">не выбрано</div>
             </div>
 
-            <div class="orb-container">
-                <div class="orb-rings">
-                    <div class="ring ring-1"></div>
-                    <div class="ring ring-2"></div>
-                    <div class="ring ring-3"></div>
-                </div>
-                <div class="orb-crosshair"></div>
-                <div class="orb" id="orb"></div>
-            </div>
+            <div class="orb-container" id="orbContainer"></div>
         </div>
 
+        <!-- Правая панель -->
         <div class="panel right-panel">
             <div class="section-title">параметры звука</div>
             <div class="sliders-row">
@@ -163,6 +166,7 @@
 
     <div class="h-divider"></div>
 
+    <!-- Клавиатура -->
     <div class="keyboard">
         <div class="key" data-note="C4" data-key="a"><span>A</span></div>
         <div class="key" data-note="D4" data-key="s"><span>B</span></div>
